@@ -45,8 +45,13 @@ main (int argc, char *argv[])
 {
   int opt;
 
-  if(argc == 1)
+  if(argc == 1){
+   		if (unveil("/", "") == -1)
+			err(1, "unveil");
+		if (unveil(NULL, NULL) == -1)
+      err(1, "unveil");
     usage();
+  }
 
   while ((opt = getopt(argc, argv, "dv")) != -1)
   {
@@ -67,7 +72,7 @@ main (int argc, char *argv[])
 static void
 usage()
 {
-	fprintf(stdout,"\n usage: macrandr [-dv] [-d Debug mode.] [-v Get version.]\n"
+	fprintf(stdout,"usage: macrandr [-dv] [-d Debug mode.] [-v Get version.]\n"
 	);
 	exit(255);
 }
