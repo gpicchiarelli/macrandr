@@ -29,15 +29,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * */
 
-#include "macrandr.h"
+#ifndef MACRANDR_H
+#define MACRANDR_H
 
-int main ()
-{
-  printf("A tiny MAC randomizer address for Open BSD. \n");
-  printf("Giacomo Picchiarelli <gpicchiarelli@gmail.com>. \n");
+#define MACRANDR_H_VERSION "0.1.0"
 
-
-  return 0;
-}
-
-
+#endif /* MACRANDR_H */
