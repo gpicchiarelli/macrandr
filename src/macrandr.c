@@ -36,7 +36,7 @@ int main ()
 {
   printf("A tiny MAC randomizer address for Open BSD. \n");
   printf("Giacomo Picchiarelli <gpicchiarelli@gmail.com>. \n");
-  return 100;
+  return 0;
 }
 
 
