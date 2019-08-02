@@ -31,11 +31,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main ()
 {
   printf("A tiny MAC randomizer address for Open BSD. \n");
   printf("Giacomo Picchiarelli <gpicchiarelli@gmail.com>. \n");
+
+
   return 0;
 }
 
