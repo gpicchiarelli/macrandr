@@ -35,18 +35,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <syslog.h>
 #include <err.h>
 
-
-
 #include "macrandr.h"
 
-int main ()
+static void get_version();
+static void usage();
+
+int
+main (int argc, char *argv[])
 {
-  printf("A tiny MAC randomizer address for Open BSD. \n");
-  printf("Version: %s. \n",MACRANDR_H_VERSION);
-  printf("Giacomo Picchiarelli <gpicchiarelli@gmail.com>. \n");
+  int opt;
 
+  if(argc == 1)
+    usage();
 
+  while ((opt = getopt(argc, argv, "dv")) != -1)
+  {
+         switch (opt) {
+         case 'v':
+            get_version();
+           break;
+         case 'd':
+           printf("Debug.\n");
+           break;
+         default:
+           usage();
+         }
+  }
   return 0;
+}
+
+static void
+usage()
+{
+	fprintf(stdout,"\n usage: macrandr [-dv] [-d Debug mode.] [-v Get version.]\n"
+	);
+	exit(255);
+}
+
+static void
+get_version()
+{
+  fprintf(stdout,"A tiny MAC randomizer address for OpenBSD. \n");
+  fprintf(stdout,"Version: %s. \n",MACRANDR_H_VERSION);
+  fprintf(stdout,"Giacomo Picchiarelli <gpicchiarelli@gmail.com>. \n");
+  exit(255);
 }
 
 
