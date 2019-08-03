@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/time.h>
 #include <errno.h>
 
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -73,14 +72,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <util.h>
 #include <ifaddrs.h>
 
-#define MINIMUM(a, b)	(((a) < (b)) ? (a) : (b))
-#define MAXIMUM(a, b) (((a) > (b)) ? (a) : (b))
-
 #include "macrandr.h"
 
 static void get_version();
 static void usage();
-static void printif(char *ifname, int ifaliases);
 
 static int aflag = 1;
 struct in6_ifreq ifr6;
@@ -103,54 +98,10 @@ int	show_join = 0;
 
 char	name[IFNAMSIZ];
 
-void	in_status(int);
-void	in_getaddr(const char *, int);
-void	in_getprefix(const char *, int);
-void	in6_fillscopeid(struct sockaddr_in6 *sin6);
-void	in6_alias(struct in6_ifreq *);
-void	in6_status(int);
-void	in6_getaddr(const char *, int);
-void	in6_getprefix(const char *, int);
-void	ieee80211_status(void);
-int	printgroup(char *, int);
-void	status(int, struct sockaddr_dl *, int);
-int getinfo(struct ifreq*, int);
-void	in6_alias(struct in6_ifreq *);
-void	in6_status(int);
+
 void setiflladdr(void);
+static void get_version (void);
 
-/* Known address families */
-const struct afswtch {
-	char *af_name;
-	short af_af;
-	void (*af_status)(int);
-	void (*af_getaddr)(const char *, int);
-	void (*af_getprefix)(const char *, int);
-	u_long af_difaddr;
-	u_long af_aifaddr;
-	caddr_t af_ridreq;
-	caddr_t af_addreq;
-} afs[] = {
-#define C(x) ((caddr_t) &x)
-	{ "inet", AF_INET, in_status, in_getaddr, in_getprefix,
-	    SIOCDIFADDR, SIOCAIFADDR, C(ridreq), C(in_addreq) },
-	{ "inet6", AF_INET6, in6_status, in6_getaddr, in6_getprefix,
-	    SIOCDIFADDR_IN6, SIOCAIFADDR_IN6, C(in6_ridreq), C(in6_addreq) },
-	{ 0,	0,	    0,		0 }
-};
-
-const struct afswtch *afp;
-
-static const struct {
-	const char	*name;
-	u_int		cipher;
-} ciphers[] = {
-	{ "usegroup",	IEEE80211_WPA_CIPHER_USEGROUP },
-	{ "wep40",	IEEE80211_WPA_CIPHER_WEP40 },
-	{ "tkip",	IEEE80211_WPA_CIPHER_TKIP },
-	{ "ccmp",	IEEE80211_WPA_CIPHER_CCMP },
-	{ "wep104",	IEEE80211_WPA_CIPHER_WEP104 }
-};
 
 int
 main (int argc, char *argv[])
@@ -165,14 +116,18 @@ main (int argc, char *argv[])
     usage();
   }
 
-  while ((opt = getopt(argc, argv, "dv")) != -1)
+  while ((opt = getopt(argc, argv, "dvc")) != -1)
   {
          switch (opt) {
+         case 'c':
+            setiflladdr();
+           break;
          case 'v':
             get_version();
            break;
          case 'd':
-           printif(NULL,0);
+           //printif(NULL,0);
+           printf("Debug mode.\n");
            break;
          default:
            usage();
@@ -184,7 +139,7 @@ main (int argc, char *argv[])
 static void
 usage()
 {
-	fprintf(stdout,"usage: macrandr [-dv] [-d Debug mode.] [-v Get version.]\n"
+	fprintf(stdout,"usage: macrandr [-dvc] [-d Debug mode.] [-v Get version.]\n"
 	);
 	exit(255);
 }
@@ -215,32 +170,3 @@ setiflladdr()
 	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
 		warn("SIOCSIFLLADDR");
 }
-
-#define MASK 2
-#define ADDR 1
-#define SIN6(x) ((struct sockaddr_in6 *) &(x))
-struct sockaddr_in6 *sin6tab[] = {
-SIN6(in6_ridreq.ifr_addr), SIN6(in6_addreq.ifra_addr),
-SIN6(in6_addreq.ifra_prefixmask), SIN6(in6_addreq.ifra_dstaddr)};
-
-void
-getsock(int naf)
-{
-	static int oaf = -1;
-
-	if (oaf == naf)
-		return;
-	if (oaf != -1)
-		close(s);
-	s = socket(naf, SOCK_DGRAM, 0);
-	if (s == -1)
-		oaf = -1;
-	else
-		oaf = naf;
-}
-
-
-
-
-
-
