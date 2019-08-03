@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static void get_version(void);
 static void usage(void);
 static void roundifaces(void);
-static void setiflladdr(char *name_g);
+static void setiflladdr(void);
 static void get_version (void);
 static void getsock (int naf);
 
@@ -173,15 +173,17 @@ roundifaces()
 {
     struct ifaddrs *ifap;
     if (getifaddrs(&ifap) != 0)
-		err(1, "getifaddrs");
+		  err(1, "getifaddrs");
+
+    strcpy(name,"re0");
+    setiflladdr();
 }
 
 /*ARGSUSED*/
 void
-setiflladdr(char *name_g)
+setiflladdr()
 {
 	struct ether_addr *eap, eabuf;
-  strcpy(name,"re0");
 
   arc4random_buf(&eabuf, sizeof (eabuf));
 	/* Non-multicast and claim it is a hardware address */
