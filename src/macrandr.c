@@ -117,6 +117,7 @@ void	status(int, struct sockaddr_dl *, int);
 int getinfo(struct ifreq*, int);
 void	in6_alias(struct in6_ifreq *);
 void	in6_status(int);
+void setiflladdr(void);
 
 /* Known address families */
 const struct afswtch {
@@ -199,22 +200,14 @@ get_version()
 
 /*ARGSUSED*/
 void
-setiflladdr(const char *addr, int param)
+setiflladdr()
 {
 	struct ether_addr *eap, eabuf;
 
-	if (!strcmp(addr, "random")) {
-		arc4random_buf(&eabuf, sizeof eabuf);
-		/* Non-multicast and claim it is a hardware address */
-		eabuf.ether_addr_octet[0] &= 0xfc;
-		eap = &eabuf;
-	} else {
-		eap = ether_aton(addr);
-		if (eap == NULL) {
-			warnx("malformed link-level address");
-			return;
-		}
-	}
+	arc4random_buf(&eabuf, sizeof eabuf);
+	/* Non-multicast and claim it is a hardware address */
+	eabuf.ether_addr_octet[0] &= 0xfc;
+	eap = &eabuf;
 	strlcpy(ifr.ifr_name, name, sizeof(ifr.ifr_name));
 	ifr.ifr_addr.sa_len = ETHER_ADDR_LEN;
 	ifr.ifr_addr.sa_family = AF_LINK;
@@ -223,175 +216,12 @@ setiflladdr(const char *addr, int param)
 		warn("SIOCSIFLLADDR");
 }
 
-void
-printif(char *ifname, int ifaliases)
-{
-	struct ifaddrs *ifap, *ifa;
-	struct if_data *ifdata;
-	const char *namep;
-	char *oname = NULL;
-	struct ifreq *ifrp;
-	int count = 0, noinet = 1;
-	size_t nlen = 0;
-
-	if (aflag)
-		ifname = NULL;
-	if (ifname) {
-		if ((oname = strdup(ifname)) == NULL)
-			err(1, "strdup");
-		nlen = strlen(oname);
-		/* is it a group? */
-		if (nlen && !isdigit((unsigned char)oname[nlen - 1]))
-			if (printgroup(oname, ifaliases) != -1) {
-				free(oname);
-				return;
-			}
-	}
-
-	if (getifaddrs(&ifap) != 0)
-		err(1, "getifaddrs");
-
-	namep = NULL;
-	for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-		if (oname) {
-			if (nlen && isdigit((unsigned char)oname[nlen - 1])) {
-				/* must have exact match */
-				if (strcmp(oname, ifa->ifa_name) != 0)
-					continue;
-			} else {
-				/* partial match OK if it ends w/ digit */
-				if (strncmp(oname, ifa->ifa_name, nlen) != 0 ||
-				    !isdigit((unsigned char)ifa->ifa_name[nlen]))
-					continue;
-			}
-		}
-		/* quickhack: sizeof(ifr) < sizeof(ifr6) */
-		if (ifa->ifa_addr->sa_family == AF_INET6) {
-			memset(&ifr6, 0, sizeof(ifr6));
-			memcpy(&ifr6.ifr_addr, ifa->ifa_addr,
-			    MINIMUM(sizeof(ifr6.ifr_addr), ifa->ifa_addr->sa_len));
-			ifrp = (struct ifreq *)&ifr6;
-		} else {
-			memset(&ifr, 0, sizeof(ifr));
-			memcpy(&ifr.ifr_addr, ifa->ifa_addr,
-			    MINIMUM(sizeof(ifr.ifr_addr), ifa->ifa_addr->sa_len));
-			ifrp = &ifr;
-		}
-		strlcpy(name, ifa->ifa_name, sizeof(name));
-		strlcpy(ifrp->ifr_name, ifa->ifa_name, sizeof(ifrp->ifr_name));
-
-		if (ifa->ifa_addr->sa_family == AF_LINK) {
-			namep = ifa->ifa_name;
-			if (getinfo(ifrp, 0) < 0)
-				continue;
-			ifdata = ifa->ifa_data;
-			status(1, (struct sockaddr_dl *)ifa->ifa_addr,
-			    ifdata->ifi_link_state);
-			count++;
-			noinet = 1;
-			continue;
-		}
-
-		if (!namep || !strcmp(namep, ifa->ifa_name)) {
-			const struct afswtch *p;
-
-			if (ifa->ifa_addr->sa_family == AF_INET &&
-			    ifaliases == 0 && noinet == 0)
-				continue;
-			if ((p = afp) != NULL) {
-				if (ifa->ifa_addr->sa_family == p->af_af)
-					p->af_status(1);
-			} else {
-				for (p = afs; p->af_name; p++) {
-					if (ifa->ifa_addr->sa_family ==
-					    p->af_af)
-						p->af_status(0);
-				}
-			}
-			count++;
-			if (ifa->ifa_addr->sa_family == AF_INET)
-				noinet = 0;
-			continue;
-		}
-	}
-	freeifaddrs(ifap);
-	free(oname);
-	if (count == 0) {
-		fprintf(stderr, "%s: no such interface\n", name);
-		exit(1);
-	}
-}
-
 #define MASK 2
 #define ADDR 1
 #define SIN6(x) ((struct sockaddr_in6 *) &(x))
 struct sockaddr_in6 *sin6tab[] = {
 SIN6(in6_ridreq.ifr_addr), SIN6(in6_addreq.ifra_addr),
 SIN6(in6_addreq.ifra_prefixmask), SIN6(in6_addreq.ifra_dstaddr)};
-
-void
-in6_getaddr(const char *s, int which)
-{
-	struct sockaddr_in6 *sin6 = sin6tab[which];
-	struct addrinfo hints, *res;
-	char buf[HOST_NAME_MAX+1 + sizeof("/128")], *pfxlen;
-	int error;
-
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_INET6;
-	hints.ai_socktype = SOCK_DGRAM;	/*dummy*/
-
-	if (which == ADDR && strchr(s, '/') != NULL) {
-		if (strlcpy(buf, s, sizeof(buf)) >= sizeof(buf))
-			errx(1, "%s: bad value", s);
-		pfxlen = strchr(buf, '/');
-		*pfxlen++ = '\0';
-		s = buf;
-		in6_getprefix(pfxlen, MASK);
-		explicit_prefix = 1;
-	}
-
-	error = getaddrinfo(s, "0", &hints, &res);
-	if (error)
-		errx(1, "%s: %s", s, gai_strerror(error));
-	memcpy(sin6, res->ai_addr, res->ai_addrlen);
-#ifdef __KAME__
-	if (IN6_IS_ADDR_LINKLOCAL(&sin6->sin6_addr) &&
-	    *(u_int16_t *)&sin6->sin6_addr.s6_addr[2] == 0 &&
-	    sin6->sin6_scope_id) {
-		*(u_int16_t *)&sin6->sin6_addr.s6_addr[2] =
-		    htons(sin6->sin6_scope_id & 0xffff);
-		sin6->sin6_scope_id = 0;
-	}
-#endif /* __KAME__ */
-	freeaddrinfo(res);
-}
-
-void
-in6_getprefix(const char *plen, int which)
-{
-	struct sockaddr_in6 *sin6 = sin6tab[which];
-	const char *errmsg = NULL;
-	u_char *cp;
-	int len;
-
-	len = strtonum(plen, 0, 128, &errmsg);
-	if (errmsg)
-		errx(1, "prefix %s: %s", plen, errmsg);
-
-	sin6->sin6_len = sizeof(*sin6);
-	if (which != MASK)
-		sin6->sin6_family = AF_INET6;
-	if ((len == 0) || (len == 128)) {
-		memset(&sin6->sin6_addr, 0xff, sizeof(struct in6_addr));
-		return;
-	}
-	memset((void *)&sin6->sin6_addr, 0x00, sizeof(sin6->sin6_addr));
-	for (cp = (u_char *)&sin6->sin6_addr; len > 7; len -= 8)
-		*cp++ = 0xff;
-	if (len)
-		*cp = 0xff << (8 - len);
-}
 
 void
 getsock(int naf)
@@ -410,56 +240,7 @@ getsock(int naf)
 }
 
 
-int
-getinfo(struct ifreq *ifr, int create)
-{
 
-	getsock(af);
-	if (s == -1)
-		err(1, "socket");
-	if (!isdigit((unsigned char)name[strlen(name) - 1]))
-		return (-1);	/* ignore groups here */
-	if (ioctl(s, SIOCGIFFLAGS, (caddr_t)ifr) == -1) {
-		int oerrno = errno;
-
-		if (!create)
-			return (-1);
-		if (ioctl(s, SIOCIFCREATE, (caddr_t)ifr) == -1) {
-			errno = oerrno;
-			return (-1);
-		}
-		if (ioctl(s, SIOCGIFFLAGS, (caddr_t)ifr) == -1)
-			return (-1);
-	}
-	flags = ifr->ifr_flags & 0xffff;
-	if (ioctl(s, SIOCGIFXFLAGS, (caddr_t)ifr) == -1)
-		ifr->ifr_flags = 0;
-	xflags = ifr->ifr_flags;
-	if (ioctl(s, SIOCGIFMETRIC, (caddr_t)ifr) == -1)
-		metric = 0;
-	else
-		metric = ifr->ifr_metric;
-#ifdef SMALL
-	if (ioctl(s, SIOCGIFMTU, (caddr_t)ifr) == -1)
-#else
-	if (is_bridge(name) || ioctl(s, SIOCGIFMTU, (caddr_t)ifr) == -1)
-#endif
-		mtu = 0;
-	else
-		mtu = ifr->ifr_mtu;
-#ifndef SMALL
-	if (ioctl(s, SIOCGIFRDOMAIN, (caddr_t)ifr) == -1)
-		rdomainid = 0;
-	else
-		rdomainid = ifr->ifr_rdomainid;
-#endif
-	if (ioctl(s, SIOCGIFLLPRIO, (caddr_t)ifr) == -1)
-		llprio = 0;
-	else
-		llprio = ifr->ifr_llprio;
-
-	return (0);
-}
 
 
 
