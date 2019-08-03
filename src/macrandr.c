@@ -37,7 +37,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
-#include <sys/socket.h>
 #include <ifaddrs.h>
 #include <net/if.h>
 #include <net/if_dl.h>
@@ -60,6 +59,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <net/trunklacp.h>
 #include <net/if_sppp.h>
 #include <net/ppp_defs.h>
+#include <sys/ioctl.h>
+#include <sys/time.h>
+#include <errno.h>
+
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -69,6 +72,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <netinet/ip_carp.h>
 #include <util.h>
 #include <ifaddrs.h>
+
+#define MINIMUM(a, b)	(((a) < (b)) ? (a) : (b))
+#define MAXIMUM(a, b) (((a) > (b)) ? (a) : (b))
 
 #include "macrandr.h"
 
@@ -84,6 +90,17 @@ struct	ifreq		ifr, ridreq;
 struct	in_aliasreq	in_addreq;
 struct	in6_aliasreq	in6_addreq;
 
+int	flags, xflags, setaddr, setipdst, doalias;
+u_long	metric, mtu;
+int	rdomainid;
+int	llprio;
+int	clearaddr, s;
+int	newaddr = 0;
+int	af = AF_INET;
+int	explicit_prefix = 0;
+int	Lflag = 1;
+int	show_join = 0;
+
 char	name[IFNAMSIZ];
 
 void	in_status(int);
@@ -97,6 +114,9 @@ void	in6_getprefix(const char *, int);
 void	ieee80211_status(void);
 int	printgroup(char *, int);
 void	status(int, struct sockaddr_dl *, int);
+int getinfo(struct ifreq*, int);
+void	in6_alias(struct in6_ifreq *);
+void	in6_status(int);
 
 /* Known address families */
 const struct afswtch {
@@ -130,8 +150,6 @@ static const struct {
 	{ "ccmp",	IEEE80211_WPA_CIPHER_CCMP },
 	{ "wep104",	IEEE80211_WPA_CIPHER_WEP104 }
 };
-
-int	explicit_prefix = 0;
 
 int
 main (int argc, char *argv[])
@@ -179,6 +197,31 @@ get_version()
   exit(255);
 }
 
+/*ARGSUSED*/
+void
+setiflladdr(const char *addr, int param)
+{
+	struct ether_addr *eap, eabuf;
+
+	if (!strcmp(addr, "random")) {
+		arc4random_buf(&eabuf, sizeof eabuf);
+		/* Non-multicast and claim it is a hardware address */
+		eabuf.ether_addr_octet[0] &= 0xfc;
+		eap = &eabuf;
+	} else {
+		eap = ether_aton(addr);
+		if (eap == NULL) {
+			warnx("malformed link-level address");
+			return;
+		}
+	}
+	strlcpy(ifr.ifr_name, name, sizeof(ifr.ifr_name));
+	ifr.ifr_addr.sa_len = ETHER_ADDR_LEN;
+	ifr.ifr_addr.sa_family = AF_LINK;
+	bcopy(eap, ifr.ifr_addr.sa_data, ETHER_ADDR_LEN);
+	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
+		warn("SIOCSIFLLADDR");
+}
 
 void
 printif(char *ifname, int ifaliases)
@@ -348,6 +391,74 @@ in6_getprefix(const char *plen, int which)
 		*cp++ = 0xff;
 	if (len)
 		*cp = 0xff << (8 - len);
+}
+
+void
+getsock(int naf)
+{
+	static int oaf = -1;
+
+	if (oaf == naf)
+		return;
+	if (oaf != -1)
+		close(s);
+	s = socket(naf, SOCK_DGRAM, 0);
+	if (s == -1)
+		oaf = -1;
+	else
+		oaf = naf;
+}
+
+
+int
+getinfo(struct ifreq *ifr, int create)
+{
+
+	getsock(af);
+	if (s == -1)
+		err(1, "socket");
+	if (!isdigit((unsigned char)name[strlen(name) - 1]))
+		return (-1);	/* ignore groups here */
+	if (ioctl(s, SIOCGIFFLAGS, (caddr_t)ifr) == -1) {
+		int oerrno = errno;
+
+		if (!create)
+			return (-1);
+		if (ioctl(s, SIOCIFCREATE, (caddr_t)ifr) == -1) {
+			errno = oerrno;
+			return (-1);
+		}
+		if (ioctl(s, SIOCGIFFLAGS, (caddr_t)ifr) == -1)
+			return (-1);
+	}
+	flags = ifr->ifr_flags & 0xffff;
+	if (ioctl(s, SIOCGIFXFLAGS, (caddr_t)ifr) == -1)
+		ifr->ifr_flags = 0;
+	xflags = ifr->ifr_flags;
+	if (ioctl(s, SIOCGIFMETRIC, (caddr_t)ifr) == -1)
+		metric = 0;
+	else
+		metric = ifr->ifr_metric;
+#ifdef SMALL
+	if (ioctl(s, SIOCGIFMTU, (caddr_t)ifr) == -1)
+#else
+	if (is_bridge(name) || ioctl(s, SIOCGIFMTU, (caddr_t)ifr) == -1)
+#endif
+		mtu = 0;
+	else
+		mtu = ifr->ifr_mtu;
+#ifndef SMALL
+	if (ioctl(s, SIOCGIFRDOMAIN, (caddr_t)ifr) == -1)
+		rdomainid = 0;
+	else
+		rdomainid = ifr->ifr_rdomainid;
+#endif
+	if (ioctl(s, SIOCGIFLLPRIO, (caddr_t)ifr) == -1)
+		llprio = 0;
+	else
+		llprio = ifr->ifr_llprio;
+
+	return (0);
 }
 
 
