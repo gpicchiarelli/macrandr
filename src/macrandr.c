@@ -92,11 +92,9 @@ int	llprio;
 int	clearaddr, s;
 int	newaddr = 0;
 int	af = AF_INET;
-int	explicit_prefix = 0;
-int	Lflag = 1;
-int	show_join = 0;
 
-char	name[IFNAMSIZ];
+
+static char	name[IFNAMSIZ];
 
 
 void setiflladdr(void);
@@ -153,20 +151,46 @@ get_version()
   exit(255);
 }
 
+void
+getsock(int naf)
+{
+	static int oaf = -1;
+
+	if (oaf == naf)
+		return;
+	if (oaf != -1)
+		close(s);
+	s = socket(naf, SOCK_DGRAM, 0);
+	if (s == -1)
+		oaf = -1;
+	else
+		oaf = naf;
+}
+
 /*ARGSUSED*/
 void
 setiflladdr()
 {
 	struct ether_addr *eap, eabuf;
 
-	arc4random_buf(&eabuf, sizeof eabuf);
+  getsock(af);
+
+  strcpy(name,"re0");
+
+  arc4random_buf(&eabuf, sizeof (eabuf));
 	/* Non-multicast and claim it is a hardware address */
 	eabuf.ether_addr_octet[0] &= 0xfc;
 	eap = &eabuf;
 	strlcpy(ifr.ifr_name, name, sizeof(ifr.ifr_name));
+
+  printf("interfaccia scelta %s \n" , ifr.ifr_name);
+
 	ifr.ifr_addr.sa_len = ETHER_ADDR_LEN;
 	ifr.ifr_addr.sa_family = AF_LINK;
 	bcopy(eap, ifr.ifr_addr.sa_data, ETHER_ADDR_LEN);
+
+  s = socket(af, SOCK_DGRAM, 0);
+
 	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
 		warn("SIOCSIFLLADDR");
 }
