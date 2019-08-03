@@ -171,9 +171,13 @@ getsock(int naf)
 void
 roundifaces()
 {
-    struct ifaddrs *ifap;
+    struct ifaddrs *ifap,*ifa;
+  	struct if_data *ifdata;
+
     if (getifaddrs(&ifap) != 0)
 		  err(1, "getifaddrs");
+
+  	  status(1, (struct sockaddr_dl *)ifa->ifa_addr,ifdata->ifi_link_state);
 
     strcpy(name,"re0");
     setiflladdr();
