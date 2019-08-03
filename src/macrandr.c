@@ -74,8 +74,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "macrandr.h"
 
-static void get_version();
-static void usage();
+static void get_version(void);
+static void usage(void);
+static void roundifaces(void);
+static void setiflladdr(char *name_g);
+static void get_version (void);
+static void getsock (int naf);
 
 static int aflag = 1;
 struct in6_ifreq ifr6;
@@ -96,11 +100,6 @@ int	af = AF_INET;
 
 static char	name[IFNAMSIZ];
 
-
-void setiflladdr(void);
-static void get_version (void);
-
-
 int
 main (int argc, char *argv[])
 {
@@ -114,11 +113,13 @@ main (int argc, char *argv[])
     usage();
   }
 
+  getsock(af);
+
   while ((opt = getopt(argc, argv, "dvc")) != -1)
   {
          switch (opt) {
          case 'c':
-            setiflladdr();
+            roundifaces();
            break;
          case 'v':
             get_version();
@@ -167,14 +168,19 @@ getsock(int naf)
 		oaf = naf;
 }
 
+void
+roundifaces()
+{
+    struct ifaddrs *ifap;
+    if (getifaddrs(&ifap) != 0)
+		err(1, "getifaddrs");
+}
+
 /*ARGSUSED*/
 void
-setiflladdr()
+setiflladdr(char *name_g)
 {
 	struct ether_addr *eap, eabuf;
-
-  getsock(af);
-
   strcpy(name,"re0");
 
   arc4random_buf(&eabuf, sizeof (eabuf));
