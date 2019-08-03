@@ -1,6 +1,7 @@
 MACRANDR_VERSION = 0.1.0
 
 all: macrandr
+	@chmod 711 macrandr
 
 macrandr: macrandr.o
 	${CC} ${LDFLAGS} -o $@ macrandr.o
