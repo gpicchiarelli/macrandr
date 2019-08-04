@@ -177,13 +177,12 @@ roundifaces()
     if (getifaddrs(&ifap) != 0)
 		  err(1, "getifaddrs");
 
-  	  status(1, (struct sockaddr_dl *)ifa->ifa_addr,ifdata->ifi_link_state);
-
-    strcpy(name,"re0");
-    setiflladdr();
+	  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
+      strcpy(name,ifa->ifa_name);
+      setiflladdr();
+    }
 }
 
-/*ARGSUSED*/
 void
 setiflladdr()
 {
