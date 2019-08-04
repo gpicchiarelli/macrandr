@@ -1,8 +1,9 @@
 MACRANDR_VERSION = 0.1.0
 
+CFLAGS+= -fstack-protector-all
+
 all: macrandr
 	@chmod 711 macrandr
-
 macrandr: macrandr.o
 	${CC} ${LDFLAGS} -o $@ macrandr.o
 
@@ -15,5 +16,4 @@ dist:
 
 clean:
 	rm -f macrandr *.o macrandr-*.tar.gz tags.*
-
 

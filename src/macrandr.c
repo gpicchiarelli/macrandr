@@ -80,6 +80,7 @@ static void roundifaces(void);
 static void setiflladdr(void);
 static void get_version (void);
 static void getsock (int naf);
+static int init_macarnd(void);
 
 static int aflag = 1;
 struct in6_ifreq ifr6;
@@ -114,9 +115,12 @@ main (int argc, char *argv[])
     usage();
   }
 
+  if (geteuid())
+	  errx(1, "need root privileges");
+
   getsock(af);
 
-  while ((opt = getopt(argc, argv, "dvc")) != -1)
+  while ((opt = getopt(argc, argv, "dvcD")) != -1)
   {
          switch (opt) {
          case 'c':
@@ -124,6 +128,9 @@ main (int argc, char *argv[])
            break;
          case 'v':
             get_version();
+           break;
+         case 'D':
+            init_macarnd();
            break;
          case 'd':
            fprintf(stdout,"Debug mode.\n");
@@ -136,6 +143,19 @@ main (int argc, char *argv[])
   }
   return 0;
 }
+
+static int done = 0;
+
+int init_macarnd(){
+
+  while(!done)
+    {
+
+    }
+
+  return 0;
+}
+
 
 static void
 usage()
@@ -211,4 +231,5 @@ setiflladdr()
   s = socket(af, SOCK_DGRAM, 0);
 	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
 		warn("SIOCSIFLLADDR");
+  close(s);
 }
