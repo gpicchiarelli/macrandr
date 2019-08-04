@@ -100,12 +100,9 @@ struct	ifreq		ifr, ridreq;
 struct	in_aliasreq	in_addreq;
 struct	in6_aliasreq	in6_addreq;
 
-int	flags, xflags, setaddr, setipdst;
+int	setaddr, setipdst;
 u_long	metric, mtu;
-int	rdomainid;
-int	llprio;
-int	clearaddr, s;
-int	newaddr = 0;
+int	s;
 int	af = AF_INET;
 
 
