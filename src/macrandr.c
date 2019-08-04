@@ -98,6 +98,7 @@ int	newaddr = 0;
 int	af = AF_INET;
 
 
+static int debug = 0;
 static char	name[IFNAMSIZ];
 
 int
@@ -125,8 +126,9 @@ main (int argc, char *argv[])
             get_version();
            break;
          case 'd':
-           //printif(NULL,0);
-           printf("Debug mode.\n");
+           fprintf(stdout,"Debug mode.\n");
+           debug = 1;
+           roundifaces();
            break;
          default:
            usage();
@@ -178,6 +180,8 @@ roundifaces()
 		  err(1, "getifaddrs");
 
 	  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
+      if(strcmp (ifa->ifa_name,"lo0"))
+        continue;
       strcpy(name,ifa->ifa_name);
       setiflladdr();
     }
@@ -194,14 +198,15 @@ setiflladdr()
 	eap = &eabuf;
 	strlcpy(ifr.ifr_name, name, sizeof(ifr.ifr_name));
 
-  printf("interfaccia scelta %s \n" , ifr.ifr_name);
+  if(debug)
+    fprintf(stdout,"Chosen iface: %s with address: %s .\n" ,
+          ifr.ifr_name,eabuf.ether_addr_octet);
 
 	ifr.ifr_addr.sa_len = ETHER_ADDR_LEN;
 	ifr.ifr_addr.sa_family = AF_LINK;
 	bcopy(eap, ifr.ifr_addr.sa_data, ETHER_ADDR_LEN);
 
   s = socket(af, SOCK_DGRAM, 0);
-
 	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
 		warn("SIOCSIFLLADDR");
 }
