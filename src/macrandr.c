@@ -119,6 +119,8 @@ main (int argc, char *argv[])
 
   if (geteuid())
 	  errx(1, "need root privileges");
+  if (chdir("/") == -1)
+		errx(1 ,"chdir(\"/\")");
 
   getsock(af);
 
