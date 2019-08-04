@@ -62,6 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <errno.h>
+#include <signal.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -81,6 +82,7 @@ static void setiflladdr(void);
 static void get_version (void);
 static void getsock (int naf);
 static int init_macarnd(void);
+static void signal_handler(int sig);
 
 static int aflag = 1;
 struct in6_ifreq ifr6;
@@ -148,14 +150,35 @@ static int done = 0;
 
 int init_macarnd(){
 
+  signal(SIGSTOP,signal_handler);
+  signal(SIGTERM,signal_handler);
+  signal(SIGKILL,signal_handler);
+
   while(!done)
     {
-
+        sleep (20000);
+        roundifaces();
     }
-
   return 0;
 }
 
+void signal_handler(sig) /* signal handler function */
+	int sig;
+	{
+		switch(sig){
+			case SIGHUP:
+				/* rehash the server */
+				break;
+			case SIGTERM:
+      case SIGSTOP:
+				/* finalize the server */
+				done = 1;
+				break;
+    case SIGKILL:
+        exit(255);
+      break;
+		}
+	}
 
 static void
 usage()
