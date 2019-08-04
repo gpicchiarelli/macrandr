@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/socket.h>
 #include <netdb.h>
 #include <sys/sockio.h>
+#include <assert.h>
 
 #include <netinet/ip_carp.h>
 #include <util.h>
@@ -117,6 +118,8 @@ main (int argc, char *argv[])
     usage();
   }
 
+  assert(TIME_ROUND > TIME_GUARD);
+
   if (geteuid())
 	  errx(1, "need root privileges");
   if (chdir("/") == -1)
@@ -134,7 +137,8 @@ main (int argc, char *argv[])
             get_version();
            break;
          case 'D':
-            daemon(1,1);
+            if(daemon(1,1))
+             errx(1, "failed to daemon.");
             init_macarnd();
            break;
          case 'd':
@@ -157,7 +161,9 @@ int init_macarnd(){
 
   while(!done)
     {
-        sleep (20000);
+      if(debug)
+        fprintf(stdout,"[macrandr][daemon] Change addresses. \n");
+        sleep (TIME_ROUND);
         roundifaces();
     }
   return 0;
