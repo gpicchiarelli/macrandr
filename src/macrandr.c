@@ -180,9 +180,12 @@ roundifaces()
 		  err(1, "getifaddrs");
 
 	  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-      if(strcmp (ifa->ifa_name,"lo0"))
-        continue;
       strcpy(name,ifa->ifa_name);
+
+      if(strcmp(name,"lo0") == 0 || strcmp(name,"enc0") == 0 ||
+         strcmp(name,"pflog0") == 0  )
+        continue;
+
       setiflladdr();
     }
 }
@@ -199,8 +202,7 @@ setiflladdr()
 	strlcpy(ifr.ifr_name, name, sizeof(ifr.ifr_name));
 
   if(debug)
-    fprintf(stdout,"Chosen iface: %s with address: %s .\n" ,
-          ifr.ifr_name,eabuf.ether_addr_octet);
+    fprintf(stdout,"Chosen iface: %s.\n" ,ifr.ifr_name);
 
 	ifr.ifr_addr.sa_len = ETHER_ADDR_LEN;
 	ifr.ifr_addr.sa_family = AF_LINK;
