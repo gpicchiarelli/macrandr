@@ -175,6 +175,7 @@ void signal_handler(sig) /* signal handler function */
 				done = 1;
 				break;
     case SIGKILL:
+        done = 1;
         exit(255);
       break;
 		}
