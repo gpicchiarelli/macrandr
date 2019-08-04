@@ -64,6 +64,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <errno.h>
 #include <signal.h>
 
+#include <net/if.h>
+#include <net/if_dl.h>
+#include <net/if_types.h>
+#include <net/if_media.h>
+#include <netinet/in.h>
+#include <netinet/if_ether.h>
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -93,7 +100,7 @@ struct	ifreq		ifr, ridreq;
 struct	in_aliasreq	in_addreq;
 struct	in6_aliasreq	in6_addreq;
 
-int	flags, xflags, setaddr, setipdst, doalias;
+int	flags, xflags, setaddr, setipdst;
 u_long	metric, mtu;
 int	rdomainid;
 int	llprio;
@@ -114,8 +121,11 @@ main (int argc, char *argv[])
     usage();
   }
 
-	if (pledge("error stdio rpath inet unveil socket", NULL) == -1)
-		  err(1, "pledge");
+	if (pledge("error stdio unix dpath cpath rpath \
+              drm inet route tty unveil", NULL) == -1)
+    err(1, "pledge");
+
+
   if (unveil("/home", "") == -1)
 			err(1, "unveil");
 
@@ -273,6 +283,6 @@ setiflladdr()
   }
   close(s);
 
-    if(debug)
-      fprintf(stdout,"Closed socket for iface: %s.\n" ,ifr.ifr_name);
+  if(debug)
+    fprintf(stdout,"Closed socket for iface: %s.\n" ,ifr.ifr_name);
 }
