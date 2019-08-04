@@ -114,7 +114,7 @@ main (int argc, char *argv[])
     usage();
   }
 
-	if (pledge("error stdio rpath inet unveil", NULL) == -1)
+	if (pledge("error stdio rpath inet unveil socket", NULL) == -1)
 		  err(1, "pledge");
   if (unveil("/home", "") == -1)
 			err(1, "unveil");
