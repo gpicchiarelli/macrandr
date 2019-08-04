@@ -134,6 +134,7 @@ main (int argc, char *argv[])
             get_version();
            break;
          case 'D':
+            daemon(1,1);
             init_macarnd();
            break;
          case 'd':
@@ -149,9 +150,7 @@ main (int argc, char *argv[])
 }
 
 static int done = 0;
-
 int init_macarnd(){
-
   signal(SIGSTOP,signal_handler);
   signal(SIGTERM,signal_handler);
   signal(SIGKILL,signal_handler);
