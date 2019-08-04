@@ -93,10 +93,7 @@ static int init_macarnd(void);
 static void signal_handler(int sig);
 
 static int aflag = 1;
-struct in6_ifreq ifr6;
 struct ifreq ifr;
-struct	in6_ifreq	in6_ridreq;
-struct	ifreq		ifr, ridreq;
 struct	in_aliasreq	in_addreq;
 struct	in6_aliasreq	in6_addreq;
 
