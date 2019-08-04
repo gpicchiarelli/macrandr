@@ -119,7 +119,7 @@ main (int argc, char *argv[])
   if (unveil("/home", "") == -1)
 			err(1, "unveil");
 
-  assert(TIME_ROUND > TIME_GUARD);
+  assert(TIME_ROUND > TIME_GUARD); //avoid saturation
 
   if (geteuid())
 	  errx(1, "need root privileges");
