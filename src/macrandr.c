@@ -92,12 +92,9 @@ static void getsock (int naf);
 static int init_macarnd(void);
 static void signal_handler(int sig);
 
-static int aflag = 1;
 struct ifreq ifr;
-struct	in_aliasreq	in_addreq;
-struct	in6_aliasreq	in6_addreq;
 
-int	setaddr, setipdst;
+int	setaddr;
 u_long	metric, mtu;
 int	s;
 int	af = AF_INET;
