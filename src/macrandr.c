@@ -111,19 +111,18 @@ main (int argc, char *argv[])
   int opt;
 
   if(argc == 1){
-   		if (unveil("/", "") == -1)
-			err(1, "unveil");
-		if (unveil(NULL, NULL) == -1)
-      err(1, "unveil");
     usage();
   }
+
+	if (pledge("error stdio rpath inet unveil", NULL) == -1)
+		  err(1, "pledge");
+  if (unveil("/home", "") == -1)
+			err(1, "unveil");
 
   assert(TIME_ROUND > TIME_GUARD);
 
   if (geteuid())
 	  errx(1, "need root privileges");
-  if (chdir("/") == -1)
-		errx(1 ,"chdir(\"/\")");
 
   getsock(af);
 
@@ -259,8 +258,21 @@ setiflladdr()
 	ifr.ifr_addr.sa_family = AF_LINK;
 	bcopy(eap, ifr.ifr_addr.sa_data, ETHER_ADDR_LEN);
 
+  if(debug)
+      fprintf(stdout,"Changed address for iface: %s.\n" ,ifr.ifr_name);
+
   s = socket(af, SOCK_DGRAM, 0);
-	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1)
-		warn("SIOCSIFLLADDR");
+
+  if(debug)
+      fprintf(stdout,"Opened socket for iface: %s.\n" ,ifr.ifr_name);
+
+	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1){
+      if(debug)
+          fprintf(stdout,"ioctl done for iface: %s.\n" ,ifr.ifr_name);
+    err(1,"ioctl ERROR");
+  }
   close(s);
+
+    if(debug)
+      fprintf(stdout,"Closed socket for iface: %s.\n" ,ifr.ifr_name);
 }
