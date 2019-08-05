@@ -93,8 +93,6 @@ static int init_macarnd(void);
 static void signal_handler(int sig);
 
 struct ifreq ifr;
-
-int	setaddr;
 int	s;
 int	af = AF_INET;
 
