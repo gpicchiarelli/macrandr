@@ -13,6 +13,7 @@ macrandr.o: macrandr.c macrandr.h
 .PHONY: dist clean
 dist:
 	tar -czNs "|\(.*\)|macrandr-${MACRANDR_VERSION}/\1|" -f macrandr-${MACRANDR_VERSION}.tar.gz *
+	cp macrandr /etc/rc.d
 
 clean:
 	rm -f macrandr *.o macrandr-*.tar.gz tags.*
