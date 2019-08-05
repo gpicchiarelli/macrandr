@@ -16,4 +16,3 @@ dist:
 
 clean:
 	rm -f macrandr *.o macrandr-*.tar.gz tags.*
-
