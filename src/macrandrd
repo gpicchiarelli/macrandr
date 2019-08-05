@@ -1,8 +1,8 @@
 #!/bin/ksh
 #
-# $OpenBSD: macrandr,v 1.2 2018/01/11 19:52:12 rpe Exp $
+# $OpenBSD: macrandr,v 1.2 2019/08/06 00:02:12 rpe Exp $
 
-daemon="/usr/sbin/macrandr"
+daemon="/usr/sbin/macrandr -D"
 
 . /etc/rc.d/rc.subr
 
