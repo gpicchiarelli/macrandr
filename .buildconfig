@@ -1,0 +1,10 @@
+[default-2]
+name=Default (Copy)
+runtime=host
+toolchain=default
+config-opts=
+run-opts=
+prefix=/home/aethon/.cache/gnome-builder/install/macrandr/host
+app-id=
+postbuild=
+prebuild=
