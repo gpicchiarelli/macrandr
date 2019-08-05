@@ -94,11 +94,6 @@ main (int argc, char *argv[])
     usage();
   }
 
-	if (pledge("error stdio unix dpath cpath rpath \
-              drm inet route tty unveil", NULL) == -1)
-    err(1, "pledge");
-
-
   if (unveil("/home", "") == -1)
 			err(1, "unveil");
 
@@ -249,7 +244,7 @@ setiflladdr()
   if(debug)
       fprintf(stdout,"Opened socket for iface: %s.\n" ,ifr.ifr_name);
 
-	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1){
+	if (ioctl(s, SIOCSIFLLADDR, (caddr_t)&ifr) == -1){ //TODO: to_pledge
       if(debug)
           fprintf(stdout,"ioctl done for iface: %s.\n" ,ifr.ifr_name);
     err(1,"ioctl ERROR");
@@ -259,3 +254,4 @@ setiflladdr()
   if(debug)
     fprintf(stdout,"Closed socket for iface: %s.\n" ,ifr.ifr_name);
 }
+
