@@ -95,7 +95,6 @@ static void signal_handler(int sig);
 struct ifreq ifr;
 
 int	setaddr;
-u_long	metric, mtu;
 int	s;
 int	af = AF_INET;
 
