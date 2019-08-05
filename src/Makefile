@@ -3,7 +3,7 @@ MACRANDR_VERSION = 0.1.0
 CFLAGS+= -fstack-protector-all
 
 all: macrandr
-	@chmod 711 macrandr
+	@chmod 0555 macrandr
 macrandr: macrandr.o
 	${CC} ${LDFLAGS} -o $@ macrandr.o
 
@@ -15,7 +15,13 @@ install:
 	tar -czNs "|\(.*\)|macrandr-${MACRANDR_VERSION}/\1|" -f macrandr-${MACRANDR_VERSION}.tar.gz *
 	cp macrandrd /etc/rc.d/macrandrd
 	cp macrandr /usr/sbin/macrandr
-	chmod 711 /etc/rc.d/macrandrd
+	chmod 0555 /etc/rc.d/macrandrd
+	chmod 0555 /usr/sbin/macrandr
+
+uninstall:
+	rm /etc/rc.d/macrandrd
+	rm /usr/sbin/macrandr
+
 
 clean:
 	rm -f macrandr *.o macrandr-*.tar.gz tags.*
