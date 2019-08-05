@@ -44,21 +44,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <net/if_types.h>
 #include <netinet/in.h>
 #include <netinet/in_var.h>
-#include <netinet6/in6_var.h>
-#include <netinet6/nd6.h>
 #include <arpa/inet.h>
 #include <netinet/ip_ipsp.h>
 #include <netinet/if_ether.h>
-#include <net80211/ieee80211.h>
-#include <net80211/ieee80211_ioctl.h>
-#include <net/pfvar.h>
-#include <net/if_pfsync.h>
-#include <net/if_pflow.h>
-#include <net/if_pppoe.h>
-#include <net/if_trunk.h>
-#include <net/trunklacp.h>
-#include <net/if_sppp.h>
-#include <net/ppp_defs.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <errno.h>
@@ -70,13 +58,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <net/if_media.h>
 #include <netinet/in.h>
 #include <netinet/if_ether.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netdb.h>
 #include <sys/sockio.h>
 #include <assert.h>
-
 #include <netinet/ip_carp.h>
 #include <util.h>
 #include <ifaddrs.h>
