@@ -94,10 +94,10 @@ main (int argc, char *argv[])
     usage();
   }
 
-  if (unveil("/home", "") == -1)
+  if (unveil("/usr/sbin/macrandr", "") == -1)
 			err(1, "unveil");
 
-  assert(TIME_ROUND > TIME_GUARD); //avoid saturation
+  assert(TIME_ROUND > TIME_GUARD); //avoid link saturation
 
   if (geteuid())
 	  errx(1, "need root privileges");
