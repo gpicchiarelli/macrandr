@@ -1,6 +1,16 @@
-NAME=macrandr
-${NAME}_VERSION = 0.1.0
+COMMENT= A daemon to change periodically MAC addresses
+NAME= macrandr
+CATEGORIES= net
+WRKCONF=
+WRKDIR=
+WRKSRC=
+WRKBUILD=
+
+V = ${NAME}_VERSION = 0.1.0
 LOCAL_DAEMON_FILE = /etc/rc.conf.local
+HOMEPAGE= https://github.com/gpicchiarelli/macrandr
+
+PKGNAME= ${NAME}d-${V}
 
 CFLAGS+= -fstack-protector-all
 
@@ -27,3 +37,5 @@ uninstall:
 
 clean:
 	rm -f ${NAME} *.o ${NAME}-*.tar.gz tags.*
+
+.include <bsd.port.mk>

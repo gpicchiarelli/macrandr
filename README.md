@@ -1,6 +1,6 @@
 # macrandrd
 
-### Just a tiny OpenBSD to change periodically MAC addresses
+### Just a tiny OpenBSD daemon to change periodically MAC addresses
 
 *OpenBSD* MAC address randomization daemon
 
