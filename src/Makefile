@@ -38,6 +38,6 @@ uninstall:
 
 
 clean:
-	rm -f ${NAME} *.o ${NAME}-*.tar.gz tags.*
+	rm -f ${NAME} *.o ${NAME}-${V}-*.tar.gz tags.*
 
 #.include <bsd.port.mk>
