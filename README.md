@@ -1,4 +1,4 @@
-# macrandr
+# macrandrd
 
 ### Just a tiny OpenBSD to change periodically MAC addresses
 
