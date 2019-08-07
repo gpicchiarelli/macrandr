@@ -1,12 +1,13 @@
 COMMENT= A daemon to change periodically MAC addresses
 NAME= macrandr
 CATEGORIES= net
+
 WRKCONF=
 WRKDIR=
 WRKSRC=
 WRKBUILD=
 
-V = ${NAME}_VERSION = 0.1.0
+V = 0.1.0
 LOCAL_DAEMON_FILE = /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/macrandr
 
