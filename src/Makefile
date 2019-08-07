@@ -12,11 +12,12 @@ LOCAL_DAEMON_FILE = /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/macrandr
 
 PKGNAME= ${NAME}d-${V}
+PKGPATH= /usr/ports/mystuff/macrandrd/src
 
 CFLAGS+= -fstack-protector-all
 
 all: macrandr
-	@chmod 0555 ${NAME}
+	@chmod 755 ${NAME}
 ${NAME}: macrandr.o
 	${CC} ${LDFLAGS} -o $@ ${NAME}.o
 
@@ -28,8 +29,8 @@ install:
 	tar -czNs "|\(.*\)|${NAME}-${MACRANDR_VERSION}/\1|" -f ${NAME}-${MACRANDR_VERSION}.tar.gz *
 	cp ${NAME}d /etc/rc.d/${NAME}d
 	cp ${NAME} /usr/sbin/${NAME}
-	chmod 0555 /etc/rc.d/${NAME}d
-	chmod 0555 /usr/sbin/${NAME}
+	chmod 755 /etc/rc.d/${NAME}d
+	chmod 755 /usr/sbin/${NAME}
 
 uninstall:
 	rm /etc/rc.d/${NAME}d
@@ -39,4 +40,4 @@ uninstall:
 clean:
 	rm -f ${NAME} *.o ${NAME}-*.tar.gz tags.*
 
-.include <bsd.port.mk>
+#.include <bsd.port.mk>
