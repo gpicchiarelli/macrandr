@@ -1,27 +1,29 @@
-MACRANDR_VERSION = 0.1.0
+NAME=macrandr
+${NAME}_VERSION = 0.1.0
+LOCAL_DAEMON_FILE = /etc/rc.conf.local
 
 CFLAGS+= -fstack-protector-all
 
 all: macrandr
-	@chmod 0555 macrandr
-macrandr: macrandr.o
-	${CC} ${LDFLAGS} -o $@ macrandr.o
+	@chmod 0555 ${NAME}
+${NAME}: macrandr.o
+	${CC} ${LDFLAGS} -o $@ ${NAME}.o
 
-macrandr.o: macrandr.c macrandr.h
+${NAME}.o: ${NAME}.c ${NAME}.h
 	${CC} -c ${CFLAGS} \
-		macrandr.c
+		${NAME}.c
 .PHONY: install clean
 install:
-	tar -czNs "|\(.*\)|macrandr-${MACRANDR_VERSION}/\1|" -f macrandr-${MACRANDR_VERSION}.tar.gz *
-	cp macrandrd /etc/rc.d/macrandrd
-	cp macrandr /usr/sbin/macrandr
-	chmod 0555 /etc/rc.d/macrandrd
-	chmod 0555 /usr/sbin/macrandr
+	tar -czNs "|\(.*\)|${NAME}-${MACRANDR_VERSION}/\1|" -f ${NAME}-${MACRANDR_VERSION}.tar.gz *
+	cp ${NAME}d /etc/rc.d/${NAME}d
+	cp ${NAME} /usr/sbin/${NAME}
+	chmod 0555 /etc/rc.d/${NAME}d
+	chmod 0555 /usr/sbin/${NAME}
 
 uninstall:
-	rm /etc/rc.d/macrandrd
-	rm /usr/sbin/macrandr
+	rm /etc/rc.d/${NAME}d
+	rm /usr/sbin/${NAME}
 
 
 clean:
-	rm -f macrandr *.o macrandr-*.tar.gz tags.*
+	rm -f ${NAME} *.o ${NAME}-*.tar.gz tags.*
