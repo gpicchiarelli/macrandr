@@ -168,8 +168,8 @@ void signal_handler(sig) /* signal handler function */
 static void
 usage()
 {
-	fprintf(stdout,"usage: macrandr [-dvc] [-d Debug mode.] [-v Get version.]\n"
-	);
+	fprintf(stdout,"usage: macrandr [-dvcD] [-d Debug mode.] [-v Get version.] \
+[-D daemon mode] [-c change MAC with a random address one-shot mode]\n"	);
 	exit(255);
 }
 
