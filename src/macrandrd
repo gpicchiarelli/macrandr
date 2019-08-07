@@ -1,6 +1,6 @@
 #!/bin/ksh
 #
-# $OpenBSD: macrandr,v 1.2 2019/08/06 00:02:12 rpe Exp $
+# $OpenBSD: macrandr,v 0.1.0 2019/08/06 00:02:12 rpe Exp $
 
 daemon="/usr/sbin/macrandr -D"
 
