@@ -16,26 +16,28 @@ PKGPATH= /usr/ports/mystuff/macrandrd/src
 
 CFLAGS+= -fstack-protector-all
 
-all: macrandr
-	chmod 0555 ${NAME}
-${NAME}: macrandr.o
+all: ${NAME}
+	@chmod 0555 ${NAME}
+${NAME}: ${NAME}.o
 	${CC} ${LDFLAGS} -o $@ ${NAME}.o
 
 ${NAME}.o: ${NAME}.c ${NAME}.h
 	${CC} -c ${CFLAGS} \
 		${NAME}.c
-.PHONY: install clean
+
+.PHONY: install clean uninstall
 install:
 	tar -czNs "|\(.*\)|${NAME}-${V}/\1|" -f ${NAME}-${V}.tar.gz *
 	cp ${NAME}d /etc/rc.d/${NAME}d
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${NAME}d
 	chmod 0555 /usr/sbin/${NAME}
+	echo "${NAME}d_flags=YES\n" >> /etc/rc.conf.local
 
 uninstall:
 	rm /etc/rc.d/${NAME}d
 	rm /usr/sbin/${NAME}
-
+	sed -i '/^${NAME}/d' /etc/rc.conf.local
 
 clean:
 	rm -f ${NAME} *.o ${NAME}-${V}-*.tar.gz tags.*
