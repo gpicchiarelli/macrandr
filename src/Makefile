@@ -1,6 +1,10 @@
 COMMENT= A daemon to change periodically MAC addresses
 NAME= macrandr
-CATEGORIES= net
+CATEGORIES= sysutil
+
+MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
+
+NO_TEST =	Yes
 
 WRKCONF=
 WRKDIR=
@@ -32,12 +36,12 @@ install:
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${NAME}d
 	chmod 0555 /usr/sbin/${NAME}
-	echo "${NAME}d_flags=YES\n" >> /etc/rc.conf.local
+	echo "${NAME}d_flags=YES\n" >> ${LOCAL_DAEMON_FILE}
 
 uninstall:
 	rm /etc/rc.d/${NAME}d
 	rm /usr/sbin/${NAME}
-	sed -i '/^${NAME}/d' /etc/rc.conf.local
+	sed -i '/^${NAME}/d' ${LOCAL_DAEMON_FILE}
 
 clean:
 	rm -f ${NAME} *.o ${NAME}-${V}-*.tar.gz tags.*
