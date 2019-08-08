@@ -4,7 +4,12 @@ NAME= macrandr
 
 DAEMON_NAME=${NAME}d
 CATEGORIES= sysutils
+
 PERMIT_PACKAGE= yes
+PERMIT_PACKAGE_CDROM= yes
+PERMIT_PACKAGE_FTP= yes
+PERMIT_DISTFILES_CDROM= yes
+PERMIT_DISTFILES_FTP= yes
 
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
@@ -18,6 +23,7 @@ WRKBUILD=
 V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
+MASTER_SITE= https://github.com/gpicchiarelli/${NAME}
 
 PKGNAME= ${DAEMON_NAME}-${V}
 DISTNAME= ${DAEMON_NAME}.${V}
@@ -36,7 +42,7 @@ ${NAME}.o: ${NAME}.c ${NAME}.h
 
 .PHONY: install clean uninstall
 install:
-	tar -czNs "|\(.*\)|${NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
+	#tar -czNs "|\(.*\)|${NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
 	cp ${DAEMON_NAME} /etc/rc.d/${DAEMON_NAME}
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
