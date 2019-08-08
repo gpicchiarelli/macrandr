@@ -4,6 +4,7 @@ NAME= macrandr
 
 DAEMON_NAME=${NAME}d
 CATEGORIES= sysutils
+PERMIT_PACKAGE= yes
 
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
@@ -56,4 +57,4 @@ uninstall:
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-${V}-*.tar.gz tags.*
 
-.include <bsd.port.mk>
+#.include <bsd.port.mk>
