@@ -140,7 +140,7 @@ int init_macarnd(){
     {
       if(debug)
         fprintf(stdout,"[macrandr][daemon] Change addresses. \n");
-        sleep (TIME_ROUND);
+        sleep (arc4random() % TIME_ROUND);
         roundifaces();
     }
   return 0;

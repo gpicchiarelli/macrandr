@@ -11,21 +11,19 @@ MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
 NO_TEST =	Yes
 
-WRKCONF=
-WRKDIR=
-WRKSRC=
-WRKBUILD=
+WRKCONF=~/macrandrd/src
+WRKDIR=~/macrandrd/src
+WRKSRC=~/macrandrd/src
+WRKBUILD=~/macrandrd/src
 
 V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 MASTER_SITE= https://github.com/gpicchiarelli/${NAME}
 
-COMPILER= base-clang ports-gcc
-
 PKGNAME= ${DAEMON_NAME}-${V}
 DISTNAME= ${DAEMON_NAME}.${V}
-PKGPATH= /usr/ports/${CATEGORIES}/${DAEMON_NAME}/src
+PKGPATH= ${WRKSRC}
 
 CFLAGS+= -fstack-protector-all
 
