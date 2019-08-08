@@ -55,6 +55,6 @@ uninstall:
 	rm /usr/share/man/man8/${DAEMON_NAME}.8
 
 clean:
-	rm -f ${NAME} *.o ${DAEMON_NAME}-${V}-*.tar.gz tags.*
+	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
 
 #.include <bsd.port.mk>
