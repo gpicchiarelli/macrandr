@@ -1,6 +1,6 @@
 COMMENT= A daemon to change periodically MAC addresses
 NAME= macrandr
-CATEGORIES= sysutil
+CATEGORIES= sysutils
 
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
@@ -13,10 +13,10 @@ WRKBUILD=
 
 V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
-HOMEPAGE= https://github.com/gpicchiarelli/macrandr
+HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 
 PKGNAME= ${NAME}d-${V}
-PKGPATH= /usr/ports/mystuff/macrandrd/src
+PKGPATH= /usr/ports/mystuff/${NAME}d/src
 
 CFLAGS+= -fstack-protector-all
 
