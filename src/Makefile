@@ -20,7 +20,7 @@ HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 
 PKGNAME= ${DAEMON_NAME}-${V}
 DISTNAME= ${DAEMON_NAME}.${V}
-PKGPATH= /usr/ports/mystuff/${DAEMON_NAME}/src
+PKGPATH= /usr/ports/${CATEGORIES}/${DAEMON_NAME}/src
 
 CFLAGS+= -fstack-protector-all
 
@@ -36,16 +36,18 @@ ${NAME}.o: ${NAME}.c ${NAME}.h
 .PHONY: install clean uninstall
 install:
 	tar -czNs "|\(.*\)|${NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
-	cp ${NAME}d /etc/rc.d/${DAEMON_NAME}
+	cp ${DAEMON_NAME} /etc/rc.d/${DAEMON_NAME}
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
 	chmod 0555 /usr/sbin/${NAME}
 	echo "${NAME}d_flags=YES\n" >> ${LOCAL_DAEMON_FILE}
+	cp man/macrandrd.8 /usr/share/man/man8/macrandrd.8
 
 uninstall:
 	rm /etc/rc.d/${DAEMON_NAME}
 	rm /usr/sbin/${NAME}
 	sed -i '/^${NAME}/d' ${LOCAL_DAEMON_FILE}
+	rm /usr/share/man/man8/macrandrd.8
 
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-${V}-*.tar.gz tags.*
