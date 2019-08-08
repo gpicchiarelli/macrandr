@@ -41,9 +41,9 @@ install:
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
 	chmod 0555 /usr/sbin/${NAME}
 	echo "${NAME}d_flags=YES\n" >> ${LOCAL_DAEMON_FILE}
-	cp man/macrandrd.8 /usr/share/man/man8/macrandrd.8
-	rcctl enable macrandrd
-	rcctl start macrandrd
+	cp man/${DAEMON_NAME}.8 /usr/share/man/man8/${DAEMON_NAME}.8
+	rcctl enable ${DAEMON_NAME}
+	rcctl start ${DAEMON_NAME}
 
 uninstall:
 	rcctl stop ${DAEMON_NAME}
