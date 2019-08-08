@@ -6,10 +6,6 @@ DAEMON_NAME=${NAME}d
 CATEGORIES= sysutils
 
 PERMIT_PACKAGE= yes
-PERMIT_PACKAGE_CDROM= yes
-PERMIT_PACKAGE_FTP= yes
-PERMIT_DISTFILES_CDROM= yes
-PERMIT_DISTFILES_FTP= yes
 
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
@@ -24,6 +20,8 @@ V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 MASTER_SITE= https://github.com/gpicchiarelli/${NAME}
+
+COMPILER= base-clang ports-gcc
 
 PKGNAME= ${DAEMON_NAME}-${V}
 DISTNAME= ${DAEMON_NAME}.${V}
@@ -63,4 +61,4 @@ uninstall:
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
 
-#.include <bsd.port.mk>
+.include <bsd.port.mk>
