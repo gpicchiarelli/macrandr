@@ -61,4 +61,4 @@ uninstall:
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
 
-.include <bsd.port.mk>
+#.include <bsd.port.mk>
