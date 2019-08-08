@@ -1,5 +1,7 @@
 COMMENT= A daemon to change periodically MAC addresses
 NAME= macrandr
+
+
 DAEMON_NAME=${NAME}d
 CATEGORIES= sysutils
 
@@ -17,6 +19,7 @@ LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 
 PKGNAME= ${DAEMON_NAME}-${V}
+DISTNAME= ${DAEMON_NAME}.${V}
 PKGPATH= /usr/ports/mystuff/${DAEMON_NAME}/src
 
 CFLAGS+= -fstack-protector-all
