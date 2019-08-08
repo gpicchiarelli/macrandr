@@ -36,6 +36,8 @@ macrandrd \- OpenBSD MAC address randomization daemon
 .IR usage
 [\fB\-D\fR\fR]
 .IR daemon mode
+[\fB\-c\fR\fR]
+.IR Change MAC addresses randomly.
 .SH DESCRIPTION
 .B macrandrd id a tiny OpenBSD MAC address randomization daemon
 modifies MAC address every 30 seconds of every active network interface except
@@ -46,13 +48,13 @@ for the following interfaces lo0 enc0 pflog0.
 Daemon mode. Use \fBrcctl\fR(8) instead.
 .TP
 .BR \-c "
-Change randomically MAC addresses.
+Change randomly MAC addresses.
 .TP
 .BR \-v "
 Information version.
 .TP
 .BR \-d "
-Change randomically MAC addresses. Debug mode.
+Change randomly MAC addresses. Debug mode.
 .SH "SEE ALSO"
 .PP
 \fBrcctl\fR(8)
