@@ -42,14 +42,18 @@ install:
 	chmod 0555 /usr/sbin/${NAME}
 	echo "${NAME}d_flags=YES\n" >> ${LOCAL_DAEMON_FILE}
 	cp man/macrandrd.8 /usr/share/man/man8/macrandrd.8
+	rcctl enable macrandrd
+	rcctl start macrandrd
 
 uninstall:
+	rcctl stop ${DAEMON_NAME}
+	rcctl disable ${DAEMON_NAME}
 	rm /etc/rc.d/${DAEMON_NAME}
 	rm /usr/sbin/${NAME}
 	sed -i '/^${NAME}/d' ${LOCAL_DAEMON_FILE}
-	rm /usr/share/man/man8/macrandrd.8
+	rm /usr/share/man/man8/${DAEMON_NAME}.8
 
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-${V}-*.tar.gz tags.*
 
-#.include <bsd.port.mk>
+.include <bsd.port.mk>
