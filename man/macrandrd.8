@@ -25,19 +25,24 @@
 .\" $OpenBSD$
 .\"
 .TH MACRANDRD 8
-.Dd August 8, 2019
+.DD August 8, 2019
 .SH NAME
 macrandrd \- OpenBSD MAC address randomization daemon
 .SH SYNOPSIS
 .B macrandrd
+[\fB\-vDcd\fR\fR]
 [\fB\-v\fR\fR]
 .IR version
 [\fB\-u\fR\fR]
 .IR usage
 [\fB\-D\fR\fR]
-.IR daemon mode
+.IR daemon
+mode
 [\fB\-c\fR\fR]
-.IR Change MAC addresses randomly.
+.IR Change
+MAC
+addresses
+randomly.
 .SH DESCRIPTION
 .B macrandrd id a tiny OpenBSD MAC address randomization daemon
 modifies MAC address every 30 seconds of every active network interface except
