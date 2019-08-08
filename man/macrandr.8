@@ -3,14 +3,17 @@
 macrandrd \- OpenBSD MAC address randomization daemon
 .SH SYNOPSIS
 .B macrandrd
-[\fB\-v\fR \fIBITS\fR]
-.IR file ...
+[\fB\-v\fR\fR]
+.IR version,
+[\fB\-u\fR\fR]
+.IR usage
 .SH DESCRIPTION
 .B macrandrd id a tiny OpenBSD MAC address randomization daemon
 modifies MAC address every 30 seconds of every active network interface except
 for the following interfaces lo0 enc0 pflog0.
 .SH OPTIONS
 .TP
-.BR \-n ", " \-\-bits =\fIBITS\fR
-Set the number of bits to modify.
-Default is one bit.
+.BR \-D "
+Daemon mode. Use rcctl instead.
+.SH AUTHORS
+macrandrd was written by Giacomo Picchiarelli <gpicchiarelli@gmail.com>
