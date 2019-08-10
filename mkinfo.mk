@@ -17,7 +17,7 @@ CFLAGS+= -Wstrict-prototypes
 
 dist:
 	@echo "Cleaning up..."
-	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* ${NAME}.o
+	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* src/${NAME}.o
 	@echo "Cleaning up: done."
 	@tar -czNs "|\(.*\)|${DAEMON_NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
 	@echo "${DAEMON_NAME}-${V}.tar.gz"

@@ -25,7 +25,7 @@ realinstall: all
 
 clean:
 	@echo "Cleaning up..."
-	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* ${NAME}.o
+	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* src/${NAME}.o
 	@echo "Cleaning up: done."
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
