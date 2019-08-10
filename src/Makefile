@@ -1,20 +1,8 @@
-COMMENT= A daemon to change periodically MAC addresses
-NAME= macrandr
+.include<../Makefile>
 
-DAEMON_NAME=${NAME}d
-CATEGORIES= sysutils
-
-MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
-
-NO_TEST =	Yes
-
-V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
 MASTER_SITE= https://github.com/gpicchiarelli/${NAME}
-
-PKGNAME= ${DAEMON_NAME}-${V}
-DISTNAME= ${DAEMON_NAME}.${V}
 
 CFLAGS+= -fstack-protector-all
 CFLAGS+= -Wunused-variable
@@ -38,7 +26,7 @@ install:
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
 	chmod 0555 /usr/sbin/${NAME}
 	echo "${NAME}d_flags=YES\n" >> ${LOCAL_DAEMON_FILE}
-	cp man/${DAEMON_NAME}.8 /usr/share/man/man8/${DAEMON_NAME}.8
+	#cp man/${DAEMON_NAME}.8 /usr/share/man/man8/${DAEMON_NAME}.8
 	rcctl enable ${DAEMON_NAME}
 	rcctl start ${DAEMON_NAME}
 
@@ -48,7 +36,7 @@ uninstall:
 	rm /etc/rc.d/${DAEMON_NAME}
 	rm /usr/sbin/${NAME}
 	sed -i '/^${NAME}/d' ${LOCAL_DAEMON_FILE}
-	rm /usr/share/man/man8/${DAEMON_NAME}.8
+	#rm /usr/share/man/man8/${DAEMON_NAME}.8
 
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
