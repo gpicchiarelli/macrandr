@@ -1,4 +1,4 @@
-.include<../Makefile>
+.include<../mkinfo.mk>
 
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 HOMEPAGE= https://github.com/gpicchiarelli/${NAME}
