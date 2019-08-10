@@ -15,7 +15,7 @@ CFLAGS+= -Wunused-variable
 CFLAGS+= -Wall
 CFLAGS+= -Wstrict-prototypes
 
-dist:
+dist: clean
 	@echo "Cleaning up..."
 	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* src/${NAME}.o
 	@echo "Cleaning up: done."
