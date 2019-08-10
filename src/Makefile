@@ -1,20 +1,12 @@
 COMMENT= A daemon to change periodically MAC addresses
 NAME= macrandr
 
-
 DAEMON_NAME=${NAME}d
 CATEGORIES= sysutils
-
-PERMIT_PACKAGE= yes
 
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 
 NO_TEST =	Yes
-
-WRKCONF=~/macrandrd/src
-WRKDIR=~/macrandrd/src
-WRKSRC=~/macrandrd/src
-WRKBUILD=~/macrandrd/src
 
 V= 0.1.0
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
@@ -23,10 +15,11 @@ MASTER_SITE= https://github.com/gpicchiarelli/${NAME}
 
 PKGNAME= ${DAEMON_NAME}-${V}
 DISTNAME= ${DAEMON_NAME}.${V}
-PKGPATH= ${WRKSRC}
 
 CFLAGS+= -fstack-protector-all
 CFLAGS+= -Wunused-variable
+CFLAGS+= -Wall
+CFLAGS+= -Wstrict-prototypes
 
 all: ${NAME}
 	@chmod 0555 ${NAME}
