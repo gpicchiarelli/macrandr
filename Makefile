@@ -1,7 +1,6 @@
 .include<mkinfo.mk> 
 
 SUBDIR = src man
-.PHONY: install clean distclean dist uninstall
 
 PREFIX ?= /usr/sbin/
 BINDIR ?= ${PREFIX}

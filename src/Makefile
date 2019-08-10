@@ -2,7 +2,7 @@
 
 all: ${NAME}
 	@chmod 0555 ${NAME}
-${NAME}: ${NAME}.o
+${NAME}: clean ${NAME}.o
 	${CC} ${LDFLAGS} -o $@ ${NAME}.o
 
 ${NAME}.o: ${NAME}.c ${NAME}.h
@@ -10,7 +10,8 @@ ${NAME}.o: ${NAME}.c ${NAME}.h
 		${NAME}.c
 
 .PHONY: release clean uninstall dist
-release:
+
+release: clean
 	cp ${DAEMON_NAME} /etc/rc.d/${DAEMON_NAME}
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
@@ -32,6 +33,6 @@ uninstall:
 	#rm /usr/share/man/man8/${DAEMON_NAME}.8
 
 clean:
-	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
-	
+	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* ${NAME}.o
+
 .include <bsd.prog.mk>
