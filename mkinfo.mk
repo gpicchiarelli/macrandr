@@ -18,3 +18,5 @@ CFLAGS+= -Wstrict-prototypes
 dist: clean
 	@tar -czNs "|\(.*\)|${DAEMON_NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
 	@echo "${DAEMON_NAME}-${V}.tar.gz"
+
+uninstall: 
