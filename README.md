@@ -10,18 +10,15 @@ tar -xvzf macrandrd-{VERSION}.tar.gz
 cd macrandrd-{VERSION}
 make all
 doas make install
-
 ```
 #### Uninstall procedure
 
 ```
 doas make clean
-
 ```
 
 #### Manual page
 
 ```
 man macrandrd
-
 ```
