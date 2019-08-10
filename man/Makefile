@@ -5,5 +5,7 @@ realinstall:
 
 uninstall:
 	rm /usr/share/man/man8/${DAEMON_NAME}.8
-	
+
+.include <bsd.man.mk>
 .include <bsd.subdir.mk>
+

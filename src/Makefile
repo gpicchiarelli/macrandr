@@ -24,7 +24,7 @@ realinstall: clean all
 	rcctl enable ${DAEMON_NAME}
 	rcctl start ${DAEMON_NAME}
 
-uninstall:
+uninstall: clean
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
 	rm /etc/rc.d/${DAEMON_NAME}
