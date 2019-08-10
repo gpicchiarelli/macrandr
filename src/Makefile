@@ -26,6 +26,7 @@ DISTNAME= ${DAEMON_NAME}.${V}
 PKGPATH= ${WRKSRC}
 
 CFLAGS+= -fstack-protector-all
+CFLAGS+= -Wunused-variable
 
 all: ${NAME}
 	@chmod 0555 ${NAME}
@@ -38,7 +39,7 @@ ${NAME}.o: ${NAME}.c ${NAME}.h
 
 .PHONY: install clean uninstall
 install:
-	#tar -czNs "|\(.*\)|${NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
+	tar -czNs "|\(.*\)|${DAEMON_NAME}-${V}/\1|" -f ../${DAEMON_NAME}-${V}.tar.gz *
 	cp ${DAEMON_NAME} /etc/rc.d/${DAEMON_NAME}
 	cp ${NAME} /usr/sbin/${NAME}
 	chmod 0555 /etc/rc.d/${DAEMON_NAME}
@@ -58,5 +59,5 @@ uninstall:
 
 clean:
 	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.*
-
-#.include <bsd.port.mk>
+	
+.include <bsd.prog.mk>

@@ -168,8 +168,9 @@ void signal_handler(sig) /* signal handler function */
 static void
 usage()
 {
-	fprintf(stdout,"usage: macrandr [-dvcD] [-d Debug mode.] [-v Get version.] \
-[-D daemon mode] [-c change MAC with a random address one-shot mode]\n"	);
+	fprintf(stdout,"usage: macrandr [-dvcD] [-d Debug mode.] \
+	 [-v Get version.] [-D daemon mode] [-c change MAC with \
+	 a random address one-shot mode]\n");
 	exit(255);
 }
 
@@ -202,7 +203,6 @@ void
 roundifaces()
 {
     struct ifaddrs *ifap,*ifa;
-  	struct if_data *ifdata;
 
     if (getifaddrs(&ifap) != 0)
 		  err(1, "getifaddrs");
