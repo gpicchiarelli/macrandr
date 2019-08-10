@@ -1,13 +1,17 @@
 .include<../mkinfo.mk>
 
-all: ${NAME}
-	@chmod 0555 ${NAME}
-${NAME}: clean ${NAME}.o
-	${CC} ${LDFLAGS} -o $@ ${NAME}.o
+SRC= ${NAME}.c
 
-${NAME}.o: ${NAME}.c ${NAME}.h
-	${CC} -c ${CFLAGS} \
-		${NAME}.c
+all: clean ${NAME}
+	@chmod 0555 ${NAME}
+${NAME}: ${NAME}.o
+	${CC} ${LDFLAGS} -o $@ ${NAME}.o
+	@echo "Compiling: done"
+
+${NAME}.o: ${NAME}.c
+	@echo "Compiling..."
+	${CC} -c ${CFLAGS} ${SRC}
+
 
 .PHONY: release clean uninstall dist
 
@@ -33,6 +37,8 @@ uninstall:
 	#rm /usr/share/man/man8/${DAEMON_NAME}.8
 
 clean:
-	rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* ${NAME}.o
+	@echo "Cleaning up..."
+	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* ${NAME}.o
+	@echo "Cleaning up: done."
 
 .include <bsd.prog.mk>
