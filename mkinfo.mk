@@ -1,5 +1,6 @@
 NAME= macrandr
 DAEMON_NAME=${NAME}d
+
 MAINTAINER=	Giacomo Picchiarelli <gpicchiarelli@gmail.com>
 COMMENT= A daemon to change periodically MAC addresses
 V= 0.1.0
@@ -13,3 +14,7 @@ CFLAGS+= -fstack-protector-all
 CFLAGS+= -Wunused-variable
 CFLAGS+= -Wall
 CFLAGS+= -Wstrict-prototypes
+
+dist: clean
+	@tar -czNs "|\(.*\)|${DAEMON_NAME}-${V}/\1|" -f ${DAEMON_NAME}-${V}.tar.gz *
+	@echo "${DAEMON_NAME}-${V}.tar.gz"
