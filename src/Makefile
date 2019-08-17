@@ -28,7 +28,7 @@ clean:
 	@echo "Cleaning up: done."
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
-	rm /etc/rc.d/${DAEMON_NAME}
+	rm ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
 	rm ${LOCALBASE}${BINDIR}${NAME}
 
 .include <bsd.prog.mk>
