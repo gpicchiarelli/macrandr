@@ -16,9 +16,9 @@ ${NAME}.o: ${NAME}.c
 
 realinstall: all
 	cp ${DAEMON_NAME} ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
-	cp ${NAME} ${LOCALBASE}/usr/sbin/${NAME}
+	cp ${NAME} ${LOCALBASE}${BINDIR}${NAME}
 	chmod 0555 ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
-	chmod 0555 ${LOCALBASE}/usr/sbin/${NAME}
+	chmod 0555 ${LOCALBASE}${BINDIR}${NAME}
 	rcctl enable ${DAEMON_NAME}
 	rcctl start ${DAEMON_NAME}
 
@@ -29,6 +29,6 @@ clean:
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
 	rm ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
-	rm ${LOCALBASE}/usr/sbin/${NAME}
+	rm ${LOCALBASE}${BINDIR}${NAME}
 
 .include <bsd.prog.mk>
