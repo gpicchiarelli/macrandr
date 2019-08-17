@@ -17,7 +17,7 @@ ${NAME}.o: ${NAME}.c
 realinstall: all
 	cp ${DAEMON_NAME} ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
 	cp ${NAME} ${LOCALBASE}${BINDIR}${NAME}
-	chmod 0555 ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
+	chmod 0555 /etc/rc.d/${DAEMON_NAME}
 	chmod 0555 ${LOCALBASE}${BINDIR}${NAME}
 	rcctl enable ${DAEMON_NAME}
 	rcctl start ${DAEMON_NAME}
@@ -28,7 +28,7 @@ clean:
 	@echo "Cleaning up: done."
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
-	rm ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
+	rm /etc/rc.d/${DAEMON_NAME}
 	rm ${LOCALBASE}${BINDIR}${NAME}
 
 .include <bsd.prog.mk>
