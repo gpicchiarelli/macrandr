@@ -15,10 +15,10 @@ ${NAME}.o: ${NAME}.c
 .PHONY: clean 
 
 realinstall: all
-	cp ${DAEMON_NAME} /etc/rc.d/${DAEMON_NAME}
-	cp ${NAME} /usr/sbin/${NAME}
-	chmod 0555 /etc/rc.d/${DAEMON_NAME}
-	chmod 0555 /usr/sbin/${NAME}
+	cp ${DAEMON_NAME} ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
+	cp ${NAME} ${LOCALBASE}/usr/sbin/${NAME}
+	chmod 0555 ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
+	chmod 0555 ${LOCALBASE}/usr/sbin/${NAME}
 	rcctl enable ${DAEMON_NAME}
 	rcctl start ${DAEMON_NAME}
 
@@ -28,7 +28,7 @@ clean:
 	@echo "Cleaning up: done."
 	rcctl stop ${DAEMON_NAME}
 	rcctl disable ${DAEMON_NAME}
-	rm /etc/rc.d/${DAEMON_NAME}
-	rm /usr/sbin/${NAME}
+	rm ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
+	rm ${LOCALBASE}/usr/sbin/${NAME}
 
 .include <bsd.prog.mk>
