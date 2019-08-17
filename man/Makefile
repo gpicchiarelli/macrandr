@@ -6,7 +6,7 @@ realinstall:
 
 clean:
 	rm ${MANDIR}/${DAEMON_NAME}.8
-	makewhatis ${LOCALBASE}/usr/share/man
+	makewhatis ${LOCALBASE}/${MANDIR}
 
 .include <bsd.man.mk>
 .include <bsd.subdir.mk>
