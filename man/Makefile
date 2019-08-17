@@ -5,7 +5,7 @@ realinstall:
 	makewhatis ${LOCALBASE}/usr/share/man
 
 clean:
-	rm ${DAEMON_NAME}.8 ${MANDIR}/${DAEMON_NAME}.8
+	rm ${MANDIR}/${DAEMON_NAME}.8
 	makewhatis ${LOCALBASE}/usr/share/man
 
 .include <bsd.man.mk>
