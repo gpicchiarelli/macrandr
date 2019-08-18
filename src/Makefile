@@ -19,15 +19,11 @@ realinstall: all
 	cp ${NAME} ${BINDIR}${NAME}
 	chmod 0555 ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
 	chmod 0555 ${BINDIR}${NAME}
-	rcctl enable ${DAEMON_NAME}
-	rcctl start ${DAEMON_NAME}
 
 clean:
 	@echo "Cleaning up..."
 	@rm -f ${NAME} *.o ${DAEMON_NAME}-*.tar.gz tags.* src/${NAME}.o
 	@echo "Cleaning up: done."
-	rcctl stop ${DAEMON_NAME}
-	rcctl disable ${DAEMON_NAME}
 	rm ${LOCALBASE}/etc/rc.d/${DAEMON_NAME}
 	rm ${BINDIR}${NAME}
 
