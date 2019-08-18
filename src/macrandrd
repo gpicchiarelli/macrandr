@@ -2,7 +2,7 @@
 #
 # $OpenBSD: macrandr,v 0.1.0 2019/08/06 00:02:12 rpe Exp $
 
-daemon="/usr/sbin/macrandr -D"
+daemon="/usr/local/sbin/macrandr -D"
 
 . /etc/rc.d/rc.subr
 
