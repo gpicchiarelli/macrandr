@@ -2,11 +2,11 @@
 
 realinstall:
 	cp ${DAEMON_NAME}.8 ${MANDIR}${DAEMON_NAME}.8
-	makewhatis ${LOCALBASE}${MANDIR}
+	makewhatis ${MANDIR}
 
 clean:
 	rm ${MANDIR}${DAEMON_NAME}.8
-	makewhatis ${LOCALBASE}${MANDIR}
+	makewhatis ${MANDIR}
 
 .include <bsd.man.mk>
 .include <bsd.subdir.mk>
