@@ -94,7 +94,7 @@ main (int argc, char *argv[])
     usage();
   }
 
-  if (unveil("/usr/sbin/macrandr", "") == -1)
+  if (unveil("/usr/local/sbin/macrandr", "") == -1)
 			err(1, "unveil");
 
   assert(TIME_ROUND > TIME_GUARD); //avoid link saturation
@@ -210,9 +210,12 @@ roundifaces()
 	  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
       strcpy(name,ifa->ifa_name);
 
+
+/*
       if(strcmp(name,"lo0") == 0 || strcmp(name,"enc0") == 0 ||
          strcmp(name,"pflog0") == 0  )
         continue;
+* */
 
       setiflladdr();
     }
@@ -223,7 +226,7 @@ setiflladdr()
 {
 	struct ether_addr *eap, eabuf;
 
-  arc4random_buf(&eabuf, sizeof (eabuf));
+    arc4random_buf(&eabuf, sizeof (eabuf));
 	/* Non-multicast and claim it is a hardware address */
 	eabuf.ether_addr_octet[0] &= 0xfc;
 	eap = &eabuf;
