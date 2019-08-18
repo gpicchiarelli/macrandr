@@ -94,7 +94,7 @@ main (int argc, char *argv[])
     usage();
   }
 
-  if (unveil("/usr/local/sbin/macrandr", "") == -1)
+  if (unveil("/usr/local/sbin/macrandr", "x") == -1)
 			err(1, "unveil");
 
   assert(TIME_ROUND > TIME_GUARD); //avoid link saturation
@@ -208,16 +208,14 @@ roundifaces()
 		  err(1, "getifaddrs");
 
 	  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-      strcpy(name,ifa->ifa_name);
 
-
-/*
-      if(strcmp(name,"lo0") == 0 || strcmp(name,"enc0") == 0 ||
-         strcmp(name,"pflog0") == 0  )
-        continue;
-* */
-
-      setiflladdr();
+      if(ifa->ifa_addr->sa_family == AF_INET6 ||
+         ifa->ifa_addr->sa_family == AF_INET){
+            if(strcmp(ifa->ifa_name,"lo0") == 0)
+              continue;
+            strcpy(name,ifa->ifa_name);
+            setiflladdr();
+         }
     }
 }
 
