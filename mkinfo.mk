@@ -7,10 +7,10 @@ DISTNAME= ${DAEMON_NAME}.${V}
 
 LOCAL_DAEMON_FILE= /etc/rc.conf.local
 
-PREFIX=${LOCALBASE}/usr
+PREFIX=${LOCALBASE}/usr/local
 BINDIR=${PREFIX}/sbin/
 
-MANDIR=${LOCALBASE}${PREFIX}/share/man/man8/
+MANDIR=${LOCALBASE}/usr/share/man/man8/
 
 CFLAGS+= -fstack-protector-all
 CFLAGS+= -Wunused-variable

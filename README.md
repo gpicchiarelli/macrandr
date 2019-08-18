@@ -22,3 +22,11 @@ doas make clean
 ```
 man macrandrd
 ```
+
+#### daemon handlers
+
+```
+doas rcctl enable macrandrd
+doas rcctl start macrandrd
+```
+
