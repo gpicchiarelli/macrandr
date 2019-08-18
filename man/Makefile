@@ -2,7 +2,7 @@
 
 realinstall:
 	cp ${DAEMON_NAME}.8 ${MANDIR}${DAEMON_NAME}.8
-	makewhatis ${LOCALBASE}/usr/share/man
+	makewhatis ${LOCALBASE}${MANDIR}
 
 clean:
 	rm ${MANDIR}${DAEMON_NAME}.8
