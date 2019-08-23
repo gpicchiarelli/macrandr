@@ -1,0 +1,728 @@
+%PDF-1.1
+1 0 obj
+<<
+>>
+endobj
+3 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Name /F0
+/BaseFont /Times-Roman
+>>
+endobj
+4 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Name /F1
+/BaseFont /Times-Bold
+>>
+endobj
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Name /F2
+/BaseFont /Times-Italic
+>>
+endobj
+6 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Name /F3
+/BaseFont /Times-BoldItalic
+>>
+endobj
+7 0 obj
+<<
+/Length 8 0 R
+>>
+stream
+BT
+/F1 11 Tf
+68.024 702.988 Td
+(NAME) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+87.274 687.599 Td
+(macrandrd) Tj
+ET
+BT
+/F0 11 Tf
+137.060 687.599 Td
+(-) Tj
+ET
+BT
+/F0 11 Tf
+143.473 687.599 Td
+(OpenBSD) Tj
+ET
+BT
+/F0 11 Tf
+191.444 687.599 Td
+(MAC) Tj
+ET
+BT
+/F0 11 Tf
+219.252 687.599 Td
+(address) Tj
+ET
+BT
+/F0 11 Tf
+254.991 687.599 Td
+(randomization) Tj
+ET
+BT
+/F0 11 Tf
+321.288 687.599 Td
+(daemon.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 656.821 Td
+(SYNOPSIS) Tj
+ET
+BT
+/F1 11 Tf
+87.274 641.432 Td
+(macrandrd) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+143.187 641.432 Td
+([) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+146.850 641.432 Td
+(-vDcd) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+174.955 641.432 Td
+(]) Tj
+ET
+BT
+/F0 11 Tf
+181.368 641.432 Td
+([) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+185.031 641.432 Td
+(-v) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+194.194 641.432 Td
+(]) Tj
+ET
+/F2 11 Tf
+BT
+/F2 11 Tf
+200.607 641.432 Td
+(version) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+235.741 641.432 Td
+([) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+239.404 641.432 Td
+(-u) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+249.183 641.432 Td
+(]) Tj
+ET
+/F2 11 Tf
+BT
+/F2 11 Tf
+255.596 641.432 Td
+(usage) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+284.009 641.432 Td
+([) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+287.672 641.432 Td
+(-D) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+299.277 641.432 Td
+(]) Tj
+ET
+/F2 11 Tf
+BT
+/F2 11 Tf
+305.690 641.432 Td
+(daemon) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+343.266 641.432 Td
+(mode) Tj
+ET
+BT
+/F0 11 Tf
+370.458 641.432 Td
+([) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+374.121 641.432 Td
+(-c) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+382.668 641.432 Td
+(]) Tj
+ET
+/F2 11 Tf
+BT
+/F2 11 Tf
+389.081 641.432 Td
+(Change) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+426.052 641.432 Td
+(MAC) Tj
+ET
+BT
+/F0 11 Tf
+453.860 641.432 Td
+(addresses) Tj
+ET
+BT
+/F0 11 Tf
+498.762 641.432 Td
+(randomly.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 610.654 Td
+(DESCRIPTION) Tj
+ET
+BT
+/F1 11 Tf
+87.274 595.265 Td
+(macrandrd) Tj
+ET
+BT
+/F1 11 Tf
+143.187 595.265 Td
+(id) Tj
+ET
+BT
+/F1 11 Tf
+155.111 595.265 Td
+(a) Tj
+ET
+BT
+/F1 11 Tf
+163.361 595.265 Td
+(tiny) Tj
+ET
+BT
+/F1 11 Tf
+184.448 595.265 Td
+(OpenBSD) Tj
+ET
+BT
+/F1 11 Tf
+234.267 595.265 Td
+(MAC) Tj
+ET
+BT
+/F1 11 Tf
+263.285 595.265 Td
+(address) Tj
+ET
+BT
+/F1 11 Tf
+302.093 595.265 Td
+(randomization) Tj
+ET
+BT
+/F1 11 Tf
+373.901 595.265 Td
+(daemon.) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+419.430 595.265 Td
+(macrandrd) Tj
+ET
+BT
+/F0 11 Tf
+469.216 595.265 Td
+(modifies) Tj
+ET
+BT
+/F0 11 Tf
+510.466 595.265 Td
+(MAC) Tj
+ET
+BT
+/F0 11 Tf
+87.274 579.876 Td
+(address) Tj
+ET
+BT
+/F0 11 Tf
+123.013 579.876 Td
+(of) Tj
+ET
+BT
+/F0 11 Tf
+134.926 579.876 Td
+(every) Tj
+ET
+BT
+/F0 11 Tf
+162.107 579.876 Td
+(active) Tj
+ET
+BT
+/F0 11 Tf
+191.125 579.876 Td
+(network) Tj
+ET
+BT
+/F0 11 Tf
+229.922 579.876 Td
+(interface) Tj
+ET
+BT
+/F0 11 Tf
+271.150 579.876 Td
+(in) Tj
+ET
+BT
+/F0 11 Tf
+282.458 579.876 Td
+(the) Tj
+ET
+BT
+/F0 11 Tf
+298.650 579.876 Td
+(system) Tj
+ET
+BT
+/F0 11 Tf
+331.958 579.876 Td
+(except) Tj
+ET
+BT
+/F0 11 Tf
+363.418 579.876 Td
+(for) Tj
+ET
+BT
+/F0 11 Tf
+378.994 579.876 Td
+(the) Tj
+ET
+BT
+/F0 11 Tf
+395.186 579.876 Td
+(following) Tj
+ET
+BT
+/F0 11 Tf
+440.715 579.876 Td
+(interfaces:) Tj
+ET
+BT
+/F0 11 Tf
+489.280 579.876 Td
+(lo0) Tj
+ET
+BT
+/F0 11 Tf
+506.088 579.876 Td
+(enc0) Tj
+ET
+BT
+/F0 11 Tf
+87.274 564.487 Td
+(pflog0.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 533.709 Td
+(OPTIONS) Tj
+ET
+BT
+/F1 11 Tf
+87.274 518.320 Td
+(-D) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+106.524 518.320 Td
+(Daemon) Tj
+ET
+BT
+/F0 11 Tf
+146.542 518.320 Td
+(mode.) Tj
+ET
+BT
+/F0 11 Tf
+176.484 518.320 Td
+(Use) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+196.339 518.320 Td
+(rcctl) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+217.712 518.320 Td
+(\(8\)) Tj
+ET
+BT
+/F0 11 Tf
+233.288 518.320 Td
+(instead.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+87.274 487.542 Td
+(-c) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+106.524 487.542 Td
+(Change) Tj
+ET
+BT
+/F0 11 Tf
+142.879 487.542 Td
+(randomly) Tj
+ET
+BT
+/F0 11 Tf
+187.792 487.542 Td
+(MAC) Tj
+ET
+BT
+/F0 11 Tf
+215.600 487.542 Td
+(addresses.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+87.274 456.764 Td
+(-v) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+106.524 456.764 Td
+(Information) Tj
+ET
+BT
+/F0 11 Tf
+161.821 456.764 Td
+(version.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+87.274 425.986 Td
+(-d) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+107.140 425.986 Td
+(Change) Tj
+ET
+BT
+/F0 11 Tf
+143.495 425.986 Td
+(randomly) Tj
+ET
+BT
+/F0 11 Tf
+188.408 425.986 Td
+(MAC) Tj
+ET
+BT
+/F0 11 Tf
+216.216 425.986 Td
+(addresses.) Tj
+ET
+BT
+/F0 11 Tf
+263.868 425.986 Td
+(Debug) Tj
+ET
+BT
+/F0 11 Tf
+295.944 425.986 Td
+(mode.) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 395.208 Td
+(EXAMPLE) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+87.274 379.819 Td
+($doas) Tj
+ET
+BT
+/F0 11 Tf
+115.687 379.819 Td
+(rcctl) Tj
+ET
+BT
+/F0 11 Tf
+137.984 379.819 Td
+(enable) Tj
+ET
+BT
+/F0 11 Tf
+169.444 379.819 Td
+(macrandrd) Tj
+ET
+BT
+/F0 11 Tf
+87.274 349.041 Td
+($doas) Tj
+ET
+BT
+/F0 11 Tf
+115.687 349.041 Td
+(rcctl) Tj
+ET
+BT
+/F0 11 Tf
+137.984 349.041 Td
+(start) Tj
+ET
+BT
+/F0 11 Tf
+159.676 349.041 Td
+(macrandrd) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 318.263 Td
+(SEE) Tj
+ET
+BT
+/F1 11 Tf
+91.564 318.263 Td
+(ALSO) Tj
+ET
+BT
+/F1 11 Tf
+87.274 302.874 Td
+(rcctl) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+108.647 302.874 Td
+(\(8\)) Tj
+ET
+/F1 11 Tf
+BT
+/F1 11 Tf
+68.024 272.096 Td
+(AUTHORS) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+87.274 256.707 Td
+(macrandrd) Tj
+ET
+BT
+/F0 11 Tf
+137.060 256.707 Td
+(was) Tj
+ET
+BT
+/F0 11 Tf
+156.915 256.707 Td
+(written) Tj
+ET
+BT
+/F0 11 Tf
+190.828 256.707 Td
+(by) Tj
+ET
+BT
+/F0 11 Tf
+204.578 256.707 Td
+(Giacomo) Tj
+ET
+BT
+/F0 11 Tf
+247.654 256.707 Td
+(Picchiarelli) Tj
+ET
+BT
+/F0 11 Tf
+300.509 256.707 Td
+(<gpicchiarelli@gmail.com>) Tj
+ET
+/F0 11 Tf
+BT
+/F0 11 Tf
+68.024 739.233 Td
+(MACRANDRD\(8\)) Tj
+ET
+BT
+/F0 11 Tf
+248.248 739.233 Td
+(System) Tj
+ET
+BT
+/F0 11 Tf
+283.393 739.233 Td
+(Manager's) Tj
+ET
+BT
+/F0 11 Tf
+333.179 739.233 Td
+(Manual) Tj
+ET
+BT
+/F0 11 Tf
+459.932 739.233 Td
+(MACRANDRD\(8\)) Tj
+ET
+BT
+/F0 11 Tf
+68.024 36.245 Td
+(OpenBSD-6.5) Tj
+ET
+BT
+/F0 11 Tf
+273.746 36.245 Td
+(August) Tj
+ET
+BT
+/F0 11 Tf
+308.275 36.245 Td
+(8,) Tj
+ET
+BT
+/F0 11 Tf
+319.275 36.245 Td
+(2019) Tj
+ET
+BT
+/F0 11 Tf
+459.932 36.245 Td
+(MACRANDRD\(8\)) Tj
+ET
+endstream
+endobj
+8 0 obj
+5847
+endobj
+9 0 obj
+<<
+/ProcSet [/PDF /Text]
+/Font <<
+/F0 3 0 R
+/F1 4 0 R
+/F2 5 0 R
+/F3 6 0 R
+>>
+>>
+endobj
+10 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/Resources 9 0 R
+/Contents 7 0 R
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/MediaBox [0 0 612 790]
+/Count 1
+/Kids [ 10 0 R]
+>>
+endobj
+11 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000009 00000 n 
+0000006458 00000 n 
+0000000030 00000 n 
+0000000112 00000 n 
+0000000193 00000 n 
+0000000276 00000 n 
+0000000363 00000 n 
+0000006262 00000 n 
+0000006282 00000 n 
+0000006377 00000 n 
+0000006541 00000 n 
+trailer
+<<
+/Size 12
+/Root 11 0 R
+/Info 1 0 R
+>>
+startxref
+6591
+%%EOF
