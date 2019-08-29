@@ -206,8 +206,7 @@ roundifaces()
   if (getifaddrs(&ifap) != 0)
     err(1, "getifaddrs");
 
-  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-
+  for (ifa = ifap; ifa; ifa = ifa->ifa_next) {    
     if (ifa->ifa_addr->sa_family == AF_INET6
         || ifa->ifa_addr->sa_family == AF_INET) {
       if (strcmp(ifa->ifa_name, "lo0") == 0)
